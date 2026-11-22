@@ -1,0 +1,22 @@
+[
+  {"question": "AI가 사실이 아닌 걸 그럴듯하게 지어내는 현상을 뭐라고 해?", "expected": "환각(hallucination)"},
+  {"question": "모델이 학습한 시점 이후 정보를 모르는 기준 날짜는?", "expected": "지식 마감일"},
+  {"question": "LLM이 글을 처리하는 가장 작은 단위는?", "expected": "토큰(token)은"},
+  {"question": "API 사용료는 무엇을 기준으로 계산돼?", "expected": "API 요금은"},
+  {"question": "모델이 한 번에 읽을 수 있는 최대 분량을 뭐라고 해?", "expected": "컨텍스트 윈도우(context window)는"},
+  {"question": "모델의 역할과 말투, 규칙을 정하는 최상위 지시문은?", "expected": "시스템 프롬프트(system prompt)는"},
+  {"question": "입출력 예시 몇 개를 넣어 형식을 따라 하게 하는 기법", "expected": "퓨샷(few-shot)"},
+  {"question": "예시 없이 지시만 주는 프롬프트 방식은?", "expected": "제로샷"},
+  {"question": "문장의 뜻을 숫자 배열로 바꾸는 것을 뭐라고 해?", "expected": "임베딩(embedding)은"},
+  {"question": "두 벡터가 얼마나 닮았는지 어떻게 계산해?", "expected": "코사인 유사도"},
+  {"question": "임베딩을 저장하고 가까운 벡터를 빨리 찾아주는 저장소", "expected": "벡터 데이터베이스(Vector DB)는"},
+  {"question": "단어가 같아야 찾는 검색과 뜻으로 찾는 검색의 차이", "expected": "키워드 검색은"},
+  {"question": "검색 증강 생성이 뭐야?", "expected": "RAG(Retrieval-Augmented Generation"},
+  {"question": "RAG는 어떤 순서로 동작해?", "expected": "RAG의 기본 단계는"},
+  {"question": "문서 조각을 너무 크거나 작게 자르면 어떤 문제가 생겨?", "expected": "청크(chunk)가 너무 크면"},
+  {"question": "모델 가중치 자체를 추가로 학습시키는 방법은?", "expected": "파인튜닝(fine-tuning)은"},
+  {"question": "LLM이 함수 이름과 인자를 JSON으로 내보내는 기능", "expected": "함수 호출(function calling)은"},
+  {"question": "생각하고 도구 쓰고 결과 확인을 반복하는 에이전트 패턴", "expected": "ReAct"},
+  {"question": "LLM은 왜 이전 대화를 기억하지 못해?", "expected": "무상태(stateless)"},
+  {"question": "문서에 숨긴 명령으로 AI가 규칙을 어기게 만드는 공격", "expected": "프롬프트 인젝션(prompt injection)은"}
+]

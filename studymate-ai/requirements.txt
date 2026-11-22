@@ -1,0 +1,8 @@
+streamlit>=1.40,<2
+openai>=1.50,<3
+numpy>=1.26
+pandas>=2.1
+pypdf>=4.0
+requests>=2.31
+python-dotenv>=1.0
+psycopg2-binary>=2.9.9   # 배포 시 Supabase(PostgreSQL) 연결용

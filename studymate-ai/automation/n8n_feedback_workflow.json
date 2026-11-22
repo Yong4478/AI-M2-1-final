@@ -1,0 +1,85 @@
+{
+  "name": "StudyMate AI - 피드백 수집 자동화",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "studymate-feedback",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "7f3b1a52-1c1e-4f0e-9a51-0b6a2f1e0001",
+      "name": "Webhook - 피드백 수신",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "5d2c6f0e-3a7b-4e1f-8c9d-0e1f2a3b4c5d"
+    },
+    {
+      "parameters": {
+        "jsCode": "// StudyMate 앱이 보낸 JSON(body)을 한 줄짜리 레코드로 정리\nreturn $input.all().map(item => {\n  const b = item.json.body || {};\n  return {\n    json: {\n      received_at: new Date().toISOString(),\n      created_at: b.created_at || '',\n      app_version: b.app_version || '',\n      tester_id: b.tester_id || '',\n      tester_group: b.tester_group || '',\n      satisfaction: b.satisfaction ?? '',\n      usefulness: b.usefulness ?? '',\n      ease: b.ease ?? '',\n      recommend: b.recommend ?? '',\n      liked: b.liked || '',\n      improve: b.improve || ''\n    }\n  };\n});"
+      },
+      "id": "7f3b1a52-1c1e-4f0e-9a51-0b6a2f1e0002",
+      "name": "피드백 정리",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [260, 300]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/여기에-시트-ID/edit"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "feedback"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "7f3b1a52-1c1e-4f0e-9a51-0b6a2f1e0003",
+      "name": "Google Sheets - 기록",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [520, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://discord.com/api/webhooks/여기에-디스코드-웹훅-주소",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ content: '📝 **StudyMate 새 피드백** (v' + $json.app_version + ', ' + $json.tester_group + ')\\n만족도 ' + $json.satisfaction + '/5 · 유용성 ' + $json.usefulness + '/5 · 편의성 ' + $json.ease + '/5 · 추천 ' + $json.recommend + '/10\\n👍 ' + ($json.liked || '-') + '\\n🛠 ' + ($json.improve || '-') }) }}",
+        "options": {}
+      },
+      "id": "7f3b1a52-1c1e-4f0e-9a51-0b6a2f1e0004",
+      "name": "Discord - 팀 알림",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [520, 400]
+    }
+  ],
+  "connections": {
+    "Webhook - 피드백 수신": {
+      "main": [[{ "node": "피드백 정리", "type": "main", "index": 0 }]]
+    },
+    "피드백 정리": {
+      "main": [[
+        { "node": "Google Sheets - 기록", "type": "main", "index": 0 },
+        { "node": "Discord - 팀 알림", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}
